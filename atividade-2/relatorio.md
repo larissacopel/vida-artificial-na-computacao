@@ -32,7 +32,113 @@ Na sétima linha, gera-se um valor randômico de 0 a 1 através da função Math
 
 2. Identifique em qual classe Java (ou quais classes) está a codificação que faz a passagem de uma interação do autômato celular para outra interação. Identifique em qual trecho do código é feita a passagem de uma interação para outra, e explique linha por linha do código-fonte. OBS: esta passagem deve ter um comando de repetição, e este é o loop principal do Jogo da Vida.
 
+A classe é TabuleiroGOL e o método é o run e p trecho de código é o seguinte:
+
+```
+for (int x=0; x<dimensaoTabuleiro.width; x++) 
+{
+    for (int y=0; y<dimensaoTabuleiro.height; y++) 
+    {
+        //System.out.println("---------------------");
+        //System.out.println("Ponto("+x+","+y+"): ");
+        vizinhosVivos = contarVizinhosVivos(x, y, tabuleiro);
+        //System.out.println("Vizinhos: " + vizinhosVivos);
+                        
+        if ( tabuleiro[x][y] ) 
+        {
+            /**
+                * Regra de sobrevivência. 
+                * Se uma célula está viva em um determinado instante, 
+                * e se a quantidade de seus vizinhos vivos é igual a 
+                * dois (02) ou três (03), a celula sobrevive na próxima 
+                * iteração.
+                */
+            if ((vizinhosVivos == 2) || (vizinhosVivos == 3)) 
+            {
+                celulasVivas.add(new Point(x,y));
+            } 
+            
+            /**
+                * Regra de morte 1.
+                * Para uma célula viva, se em um instante a quantidade de vizinhos
+                * vivos for menor que dois (02), na próxima iteração esta célula morre
+                * por solidão (sub-população).
+                * 
+                * Regra de morte 2.
+                * Para uma célula viva, se em um determinado instante a quantidade de
+                * vizinhos vivos for maior do que três (03), na próxima iteração a
+                * célula morre por super população.
+                * 
+                */
+        } else {
+            /**
+                * Regra de nascimento. 
+                * Se uma célula está morta em um determinado instante, mas
+                * tem exatamente três (03) vizinhos vivos, então esta célula
+                * se torna viva na próxima iteração.
+                */
+            if (vizinhosVivos == 3) 
+            {
+                celulasVivas.add(new Point(x,y));
+            }
+        }// Fim do else
+    }// Fim do for j
+}//Fim do for i
+
+resetBoard();
+ponto.addAll(celulasVivas);
+repaint();	
+
+```
+
 3. Identifique em qual classe Java (ou quais classes) está a codificação com as regras para definir quando uma célula irá morrer, quando uma célula irá sobreviver ou quando uma célula irá nascer. Identifique em qual trecho do código é feita esta implementação, e explique linha por linha do código-fonte.
+
+A classe é TabuleiroGOL e o método é o run e p trecho de código é o seguinte:
+
+Sobreviver:
+
+```
+if ( tabuleiro[x][y] ) 
+{
+    if ((vizinhosVivos == 2) || (vizinhosVivos == 3)) 
+    {
+        celulasVivas.add(new Point(x,y));
+    } 
+}
+```
+Obs.: por simplicidade, removi os comentários que existem no código
+
+Na primeira linha do código, realiza-se uma checagem para verificar se o quadradinho que está sendo checada está viva. Na terceira linha, verifica-se se a quantidade de vizinhos vivos da célula atual é igual a dois ou três (a determinação da quantidade de vizinhos vivos é realizada através de outro método já executado antes dessde momento).
+Se a célula atual possuir dois ou três vizinhos vivos, ela é adicionada à lista que celulas que estarão vivas após essa iteração. Como trata-se de uma célula que já estava viva, trata-se de uma sobrevivência.
+
+Nascer: 
+```
+else {
+    if (vizinhosVivos == 3) 
+    {
+        celulasVivas.add(new Point(x,y));
+    }
+}
+```
+Obs.: por simplicidade, removi os comentários que existem no código
+
+A primeira linha do código (else) inicia um bloco para células que não estão vivas. Na segunda linha, verifica-se se a quantidade de vizinhos vivos que a célula atual possui é igual a 3. Caso positivo, na linha 4, adiciona-se a célula à lista que celulas que estarão vivas após essa iteração.
+
+Morte
+
+A morte não possui um código explícito, porém, como a lista celulasVivas é inicializada com 0 para todas as células, as células que estiverem vivas e não possuírem 2 ou 3 vizinhos vivos, morrerão:
+
+```
+if ( tabuleiro[x][y] ) 
+{
+    if ((vizinhosVivos == 2) || (vizinhosVivos == 3)) 
+    {
+        celulasVivas.add(new Point(x,y));
+    } else {
+        /** MORTE **/
+    }
+} 
+```
 
 4. As respostas das questões anteriores devem estar um arquivo DOC ou ODT, e este arquivo deve ser submetido por um dos integrantes da dupla em uma atividade definida pela professora da disciplina.
 
