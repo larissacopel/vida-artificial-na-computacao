@@ -21,7 +21,7 @@ A melhor abordagem seria a abordagem bottom up pois cada individuo tem seu próp
 
 * **O sistema complexo tem auto-organização? Caso tenha, exemplifique um comportamento apresentado pelo sistema complexo que seja “auto-organizado”;** 
 
-
+O sistema complexo tem auto-organização, pois os indivíduos conseguem entrar no trêm de forma (relativamente) organizada e os que não conseguem entrar ja ficam na porta do trêm aguardando o proximo chegar.
 
 * **O sistema é aberto ou fechado? Justifique sua resposta;**
 
