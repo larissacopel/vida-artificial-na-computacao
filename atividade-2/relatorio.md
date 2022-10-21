@@ -34,6 +34,34 @@ Na sétima linha, gera-se um valor randômico de 0 a 1 através da função Math
 
 2. **Identifique em qual classe Java (ou quais classes) está a codificação que faz a passagem de uma interação do autômato celular para outra interação. Identifique em qual trecho do código é feita a passagem de uma interação para outra, e explique linha por linha do código-fonte. OBS: esta passagem deve ter um comando de repetição, e este é o loop principal do Jogo da Vida.**
 
+A classe em que o jogo faz a passagem de uma interação para outra é  no TabuleiroGOL. No método run, em que temos uma dupla iteração para percorrer todas as linhas e todas as colunas do jogo:
+
+```
+for (int x=0; x<dimensaoTabuleiro.width; x++) 
+        {
+            for (int y=0; y<dimensaoTabuleiro.height; y++) 
+            {
+            	vizinhosVivos = contarVizinhosVivos(x, y, tabuleiro);
+            	            	
+                if ( tabuleiro[x][y] ) 
+                {
+                    if ((vizinhosVivos == 2) || (vizinhosVivos == 3)) 
+                    {
+                        celulasVivas.add(new Point(x,y));
+                    } 
+                } else {
+                    if (vizinhosVivos == 3) 
+                    {
+                        celulasVivas.add(new Point(x,y));
+                    }
+                }// Fim do else
+            }// Fim do for j
+        }//Fim do for i
+```
+Obs.: por simplicidade, removi os comentários que existem no código
+
+Na primeira linha temos a estrutura de repetição que irá passar por todo eixo x do tabuleiro. Na terceira linha temos a estrutura de repetição que ira passar por todo o eixo y do tabuleiro. Na quinta linha chamamos o método que ira nos retornar o numero de vizinhos vivos daquele determinado ponto.  Na sétima linha temos uma verificação para saber se aquele ponto do tabuleiro esta vivo, em caso positivo, na nona linha verificamos se o numero de vizinhos vivos é igual a 2 ou 3 e se sim, na linha 11, adicionamos esse ponto dentro do vetor de celulas vivas. Na linha 13, temos o "else" que indica caso a celula não estiver viva. Na linha 15, temos uma verificação para saber se o numero de vizinhos vivos é igual a 3, se sim, na linha 17, será adicionado este ponto no vetor de celulas vivas. 
+
 
 3. **Identifique em qual classe Java (ou quais classes) está a codificação com as regras para definir quando uma célula irá morrer, quando uma célula irá sobreviver ou quando uma célula irá nascer. Identifique em qual trecho do código é feita esta implementação, e explique linha por linha do código-fonte.**
 <br>
