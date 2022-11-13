@@ -178,6 +178,22 @@ public class TabuleiroGOL extends JPanel implements ComponentListener, MouseList
             	            	
                 if ( tabuleiro[x][y] ) 
                 {
+                    
+                    /**
+                    * Regra das linha acima. 
+                    * Se uma célula está viva em um determinado instante, 
+                    * e se seus 3 vizinhos acima estiverem vivos, 
+                    * esta celula irá morrer na proxima iteração.
+                    * Lembrando que seus vizinhos periodicos.
+                    */
+                    int linhaAcimaDaLinhaAtual = (y == 0 ? dimensaoTabuleiro.height-1 : y);
+                    int colunaAcimaDireita = (x-1 < 0 ? dimensaoTabuleiro.width-1 : x-1);
+                    int colunaAcimaEsquerda = (x+1 == dimensaoTabuleiro.width ? 0 : dimensaoTabuleiro.width-1);
+                
+                    if(tabuleiro [x][linhaAcimaDaLinhaAtual] && tabuleiro [colunaAcimaDireita][linhaAcimaDaLinhaAtual] && tabuleiro [colunaAcimaEsquerda][linhaAcimaDaLinhaAtual]){
+                        continue;
+                    }
+                    
                 	/**
                 	 * Regra de sobrevivência. 
                 	 * Se uma célula está viva em um determinado instante, 
