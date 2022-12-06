@@ -5,6 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
+/*
+* Trabalho realizado em dupla:
+* Larissa Copel Rothman        RA: 11201721367
+* Rafael Hajime Mori 		   RA: 21045116
+* */
+
+
 public class MyFractal extends JFrame implements ActionListener {
 
     MyPanel drawingArea = null;   // The Panel
